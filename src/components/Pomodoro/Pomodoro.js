@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import {
   FiPlay,
@@ -9,108 +9,105 @@ import {
 
 // Component
 const Pomodoro = () => {
-  const [time, setTime] = useState(1500000);
-  const [timerOn, setTimerOn] = useState(false);
-  const [timerMode, setTimerMode] = useState("focus");
+  const time = { hours: 0, minutes: 0, seconds: 30 };
+  const [paused, setPaused] = useState(true);
+  const [over, setOver] = useState(false);
+  const [[hour, minute, second], setTime] = useState([0, 25, 0]);
+  const [[currentHour, currentMinute, currentSecond], setCurrentTime] =
+    useState([hour, minute, second]);
+  const [mode, setMode] = useState("focus");
 
-  useEffect(() => {
-    let interval = null;
-
-    if (timerOn) {
-      interval = setInterval(() => {
-        setTime((prevTime) => prevTime - 1000);
-      }, 1000);
-    } else if (!timerOn) {
-      clearInterval(interval);
+  const tick = () => {
+    if (paused || over) return;
+    if (currentHour === 0 && currentMinute === 0 && currentSecond === 0)
+      setOver(true);
+    else if (currentMinute === 0 && currentSecond === 0) {
+      setCurrentTime([currentHour - 1, 59, 59]);
+    } else if (currentSecond === 0) {
+      setCurrentTime([currentHour, currentMinute - 1, 59]);
+    } else {
+      setCurrentTime([currentHour, currentMinute, currentSecond - 1]);
     }
+  };
 
-    return () => clearInterval(interval);
-  }, [timerOn]);
+  const reset = () => {
+    setCurrentTime([parseInt(hour), parseInt(minute), parseInt(second)]);
+    setPaused(paused);
+    setOver(false);
+  };
+
+  function switchMode(specificMode) {
+    if (specificMode === "focus") {
+      setMode("focus");
+      setCurrentTime([0, 25, 0]);
+      setTime([0, 25, 0]);
+    } else if (specificMode === "shortBreak") {
+      setMode("shortBreak");
+      setCurrentTime([0, 5, 0]);
+      setTime([0, 5, 0]);
+    } else if (specificMode === "longBreak") {
+      setMode("longBreak");
+      setCurrentTime([0, 15, 0]);
+      setTime([0, 15, 0]);
+    }
+  }
+
+  function nextMode() {
+    if (mode === "focus") {
+      setMode("shortBreak");
+      setCurrentTime([0, 5, 0]);
+      setTime([0, 5, 0]);
+    } else if (mode === "shortBreak") {
+      setMode("longBreak");
+      setCurrentTime([0, 15, 0]);
+      setTime([0, 15, 0]);
+    } else if (mode === "longBreak") {
+      setMode("focus");
+      setCurrentTime([0, 25, 0]);
+      setTime([0, 25, 0]);
+    }
+  }
+
+  React.useEffect(() => {
+    const timerID = setInterval(() => tick(), 1000);
+    return () => clearInterval(timerID);
+  });
 
   return (
     <PomodoroWrapper>
       <ModeList>
-        <ModeBtn
-          status={timerMode === "focus"}
-          onClick={() => {
-            setTime(1500000);
-            setTimerOn(false);
-            setTimerMode("focus");
-          }}
-        >
+        <ModeBtn onClick={() => switchMode("focus")} status={mode === "focus"}>
           Focus
         </ModeBtn>
         <ModeBtn
-          status={timerMode === "shortBreak"}
-          onClick={() => {
-            setTime(300000);
-            setTimerOn(false);
-            setTimerMode("shortBreak");
-          }}
+          onClick={() => switchMode("shortBreak")}
+          status={mode === "shortBreak"}
         >
           Short break
         </ModeBtn>
         <ModeBtn
-          status={timerMode === "longBreak"}
-          onClick={() => {
-            setTime(900000);
-            setTimerOn(false);
-            setTimerMode("longBreak");
-          }}
+          onClick={() => switchMode("longBreak")}
+          status={mode === "longBreak"}
         >
           Long break
         </ModeBtn>
       </ModeList>
-      <Timer>
-        <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
-        <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
-      </Timer>
+      <Timer>{`${currentMinute.toString().padStart(2, "0")}:${currentSecond
+        .toString()
+        .padStart(2, "0")}`}</Timer>
+      <div>{over ? "Time'currentSecond up!" : ""}</div>
       <ActionList>
-        <ActionBtn
-          onClick={() => {
-            setTime(
-              timerMode === "focus"
-                ? 1500000
-                : timerMode === "shortBreak"
-                ? 300000
-                : timerMode === "longBreak"
-                ? 900000
-                : 0
-            );
-            setTimerOn(false);
-          }}
-        >
+        <ActionBtn onClick={() => reset()}>
           <FiRotateCcw color="#5c5555" size={25}></FiRotateCcw>
         </ActionBtn>
-        {!timerOn ? (
-          <ActionBtn onClick={() => setTimerOn(true)}>
+        <ActionBtn onClick={() => setPaused(!paused)}>
+          {paused ? (
             <FiPlay color="#5c5555" size={25}></FiPlay>
-          </ActionBtn>
-        ) : (
-          <ActionBtn onClick={() => setTimerOn(false)}>
+          ) : (
             <FiPauseCircle color="#5c5555" size={25}></FiPauseCircle>
-          </ActionBtn>
-        )}
-        <ActionBtn
-          onClick={() => {
-            switch (timerMode) {
-              case "focus":
-                setTime(300000);
-                setTimerMode("shortBreak");
-                break;
-              case "shortBreak":
-                setTime(900000);
-                setTimerMode("longBreak");
-                break;
-              case "longBreak":
-                setTime(1500000);
-                setTimerMode("focus");
-                break;
-              default:
-                break;
-            }
-          }}
-        >
+          )}
+        </ActionBtn>
+        <ActionBtn onClick={nextMode}>
           <FiSkipForward color="#5c5555" size={25}></FiSkipForward>
         </ActionBtn>
       </ActionList>

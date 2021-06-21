@@ -49,6 +49,7 @@ const TaskText = styled.p`
   max-width: 32rem;
   overflow: hidden;
   font-size: 1.5rem;
+  color: #4f4f4f;
   ${({ status }) => {
     switch (status) {
       case "complete":
@@ -58,7 +59,7 @@ const TaskText = styled.p`
       default:
         return "";
     }
-  }}
+  }};
 `;
 const Icon = styled.div`
   margin-left: auto;

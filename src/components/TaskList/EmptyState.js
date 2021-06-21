@@ -26,8 +26,5 @@ const Text = styled.p`
   padding: 0;
   margin: 0;
 `;
-const Image = styled.img`
-  width: 30rem;
-`;
 
 export default EmptyState;

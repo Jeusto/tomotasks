@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import {
   FiPlay,
@@ -140,7 +139,6 @@ const Timer = styled.h1`
   font-weight: 400;
 `;
 const ModeList = styled.div`
-  background-color: #ea5e57;
   margin: auto;
   display: flex;
   justify-content: center;
@@ -156,6 +154,8 @@ const ModeBtn = styled.button`
   color: white;
   ${({ status }) => {
     if (status) {
+      return "background-color: #ea5e57; color: #ffffff";
+    } else {
       return "background-color: #fff2f2; color: #424242";
     }
   }}

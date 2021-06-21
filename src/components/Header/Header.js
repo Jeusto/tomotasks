@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 import tomato_logo from "./tomato.svg";
 
 // Component
@@ -29,7 +29,7 @@ const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 0.125rem solid #f2d2d0;
+  border-bottom: 0.2rem solid #f2d2d0;
   padding: 0.25rem 0;
 `;
 const Logo = styled.a`

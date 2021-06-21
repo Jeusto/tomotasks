@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useState } from "react";
 
 // Component
 const AddTask = ({ onAdd, onClick }) => {
@@ -15,6 +14,7 @@ const AddTask = ({ onAdd, onClick }) => {
     onAdd({ text });
     setText("");
   };
+
   return (
     <Form onSubmit={onSubmit}>
       <TaskInput

@@ -1,10 +1,9 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import Task from "./Task";
-import EmptyState from "./EmptyState";
-import AddTask from "./AddTask";
 import { FiPlus } from "react-icons/fi";
+import EmptyState from "./EmptyState";
+import Task from "./Task";
+import AddTask from "./AddTask";
 
 // Component
 const TaskList = ({ tasks, onAdd, onDelete, onCheck }) => {
@@ -36,7 +35,9 @@ const TaskList = ({ tasks, onAdd, onDelete, onCheck }) => {
       )}
       {showAddTask && (
         <AddTask
-          onClick={() => setShowAddTask(!showAddTask)}
+          onClick={() => {
+            setShowAddTask(!showAddTask);
+          }}
           onAdd={onAdd}
         ></AddTask>
       )}

@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import empty from "./empty.svg";
 
 // Component
 const EmptyState = () => {

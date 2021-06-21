@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-// Component
 const EmptyState = () => {
+  // Component
   return (
     <Wrapper>
       <Text>No tasks to show, start adding some.</Text>

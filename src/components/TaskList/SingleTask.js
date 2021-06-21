@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { FiTrash } from "react-icons/fi";
 
-// Component
 const Task = ({ task, onCheck, onDelete }) => {
+  // Component
   return (
     <TaskWrapper>
       <Checkbox onClick={() => onCheck(task.id)}></Checkbox>

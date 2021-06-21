@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-// Component
 const AddTask = ({ onAdd, onClick }) => {
+  // State
   const [text, setText] = useState("");
 
+  // Add task
   const onSubmit = (e) => {
     e.preventDefault();
     if (!text) {
@@ -15,6 +16,7 @@ const AddTask = ({ onAdd, onClick }) => {
     setText("");
   };
 
+  // Component
   return (
     <Form onSubmit={onSubmit}>
       <TaskInput
@@ -38,7 +40,6 @@ const Form = styled.form`
   justify-content: flex-end;
   margin-bottom: 1rem;
 `;
-
 const TaskInput = styled.input.attrs({ type: "text", maxLength: "70" })`
   box-sizing: border-box;
   margin-top: 1rem;

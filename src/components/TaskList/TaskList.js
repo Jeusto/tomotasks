@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FiPlus } from "react-icons/fi";
 import EmptyState from "./EmptyState";
-import Task from "./Task";
+import SingleTask from "./SingleTask";
 import AddTask from "./AddTask";
 
-// Component
 const TaskList = ({ tasks, onAdd, onDelete, onCheck }) => {
+  // State
   const [showAddTask, setShowAddTask] = useState(false);
 
+  // Component
   return (
     <TaskListWrapper>
       <Header>
@@ -23,12 +24,12 @@ const TaskList = ({ tasks, onAdd, onDelete, onCheck }) => {
       </Header>
       {tasks.length > 0 ? (
         tasks.map((task) => (
-          <Task
+          <SingleTask
             key={task.id}
             task={task}
             onDelete={onDelete}
             onCheck={onCheck}
-          ></Task>
+          ></SingleTask>
         ))
       ) : (
         <EmptyState></EmptyState>

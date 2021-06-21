@@ -1,8 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { Howl } from "howler";
 import Header from "./components/Header/Header";
 import Pomodoro from "./components/Pomodoro/Pomodoro";
 import TaskList from "./components/TaskList/TaskList";
+import checkSound from "./checkSound.mp3";
 
 function App() {
   // Tasks
@@ -27,6 +29,12 @@ function App() {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
+  // Check sound
+  let sound = new Howl({
+    src: [checkSound],
+    volume: 0.25,
+  });
+
   // Check task
   const completeTask = (id) => {
     setTasks(
@@ -39,8 +47,10 @@ function App() {
           : task
       )
     );
+    sound.play();
   };
 
+  // Component
   return (
     <div className="container">
       <Header title={"Tomatasks"}></Header>

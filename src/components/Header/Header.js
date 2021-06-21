@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import tomato_logo from "./tomato.svg";
 
-// Component
 const Header = (props) => {
+  // Component
   return (
     <HeaderWrapper>
       <Logo href="" target="_blank">
@@ -32,7 +32,7 @@ const HeaderWrapper = styled.div`
   border-bottom: 0.2rem solid #f2d2d0;
   padding: 0.25rem 0;
 `;
-const Logo = styled.a`
+const Logo = styled.div`
   color: inherit;
   text-decoration: none;
   decoration: none;

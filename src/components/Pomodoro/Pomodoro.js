@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Howl } from "howler";
 import {
   FiPlay,
   FiPauseCircle,
   FiRotateCcw,
   FiSkipForward,
 } from "react-icons/fi";
+import timesupSound from "./timesupSound.wav";
 
-// Component
 const Pomodoro = () => {
-  const time = { hours: 0, minutes: 0, seconds: 30 };
+  // Time's up sound
+  let sound = new Howl({
+    src: [timesupSound],
+    volume: 0.25,
+  });
+
+  // States
   const [paused, setPaused] = useState(true);
   const [over, setOver] = useState(false);
   const [[hour, minute, second], setTime] = useState([0, 25, 0]);
@@ -17,11 +24,13 @@ const Pomodoro = () => {
     useState([hour, minute, second]);
   const [mode, setMode] = useState("focus");
 
+  // Countdown tick
   const tick = () => {
     if (paused || over) return;
-    if (currentHour === 0 && currentMinute === 0 && currentSecond === 0)
+    if (currentHour === 0 && currentMinute === 0 && currentSecond === 0) {
+      sound.play();
       setOver(true);
-    else if (currentMinute === 0 && currentSecond === 0) {
+    } else if (currentMinute === 0 && currentSecond === 0) {
       setCurrentTime([currentHour - 1, 59, 59]);
     } else if (currentSecond === 0) {
       setCurrentTime([currentHour, currentMinute - 1, 59]);
@@ -30,13 +39,19 @@ const Pomodoro = () => {
     }
   };
 
+  // Reset countdown
   const reset = () => {
-    setCurrentTime([parseInt(hour), parseInt(minute), parseInt(second)]);
+    setCurrentTime([
+      parseInt(hour, 10),
+      parseInt(minute, 10),
+      parseInt(second, 10),
+    ]);
     setPaused(paused);
     setOver(false);
   };
 
-  function switchMode(specificMode) {
+  // Switch countdown mode
+  const switchMode = (specificMode) => {
     if (specificMode === "focus") {
       setMode("focus");
       setCurrentTime([0, 25, 0]);
@@ -50,8 +65,9 @@ const Pomodoro = () => {
       setCurrentTime([0, 15, 0]);
       setTime([0, 15, 0]);
     }
-  }
+  };
 
+  // Get to next countdown mode
   function nextMode() {
     if (mode === "focus") {
       setMode("shortBreak");
@@ -68,11 +84,13 @@ const Pomodoro = () => {
     }
   }
 
+  // Start countdown
   React.useEffect(() => {
     const timerID = setInterval(() => tick(), 1000);
     return () => clearInterval(timerID);
   });
 
+  // Component
   return (
     <PomodoroWrapper>
       <ModeList>
@@ -92,10 +110,9 @@ const Pomodoro = () => {
           Long break
         </ModeBtn>
       </ModeList>
-      <Timer>{`${currentMinute.toString().padStart(2, "0")}:${currentSecond
+      <Countdown>{`${currentMinute.toString().padStart(2, "0")}:${currentSecond
         .toString()
-        .padStart(2, "0")}`}</Timer>
-      <div>{over ? "Time'currentSecond up!" : ""}</div>
+        .padStart(2, "0")}`}</Countdown>
       <ActionList>
         <ActionBtn onClick={() => reset()}>
           <FiRotateCcw color="#5c5555" size={25}></FiRotateCcw>
@@ -125,7 +142,7 @@ const PomodoroWrapper = styled.div`
   transition: 200ms ease-in-out;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 `;
-const Timer = styled.h1`
+const Countdown = styled.h1`
   color: #403b3b;
   display: flex;
   justify-content: center;

@@ -88,6 +88,7 @@ const AddTaskBtn = styled.button`
   right: 0;
   border-radius: 0.25rem;
   margin-top: 1rem;
+  padding-left: 0.5rem;
 `;
 
 export default TaskList;

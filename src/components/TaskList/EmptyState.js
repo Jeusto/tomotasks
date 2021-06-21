@@ -19,6 +19,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
+  padding-left: 0.75rem;
 `;
 const Text = styled.p`
   font-size: 1.5rem;

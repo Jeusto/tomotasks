@@ -1,12 +1,36 @@
 import React from "react";
 import styled from "styled-components";
 import { FiTrash } from "react-icons/fi";
+import Checkbox from "@material-ui/core/Checkbox";
+import { withStyles } from "@material-ui/core/styles";
 
 const Task = ({ task, onCheck, onDelete }) => {
+  // Checkbox
+  const GreenCheckbox = withStyles({
+    root: {
+      color: "#ea5e57",
+      "&$checked": {
+        color: "#ea5e57",
+      },
+    },
+    checked: {},
+  })((props) => <Checkbox color="default" {...props} />);
+
+  const [checked, setChecked] = React.useState(true);
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+    onCheck(task.id);
+  };
+
   // Component
   return (
     <TaskWrapper>
-      <Checkbox onClick={() => onCheck(task.id)}></Checkbox>
+      <GreenCheckbox
+        checked={task.status === "complete" ? true : false}
+        onChange={handleChange}
+        inputProps={{ "aria-label": "primary checkbox" }}
+      />
       <TaskText status={task.status}>{task.text}</TaskText>
       <Icon>
         {" "}
@@ -36,13 +60,6 @@ const TaskWrapper = styled.div`
   border-radius: 0.25rem;
   margin-top: 0rem;
   border-bottom: 2px solid #ededed;
-`;
-const Checkbox = styled.input.attrs({ type: "checkbox" })`
-  cursor: pointer;
-  width: 1.4rem;
-  height: 1.4rem;
-  margin-right: 0.5rem;
-  color: red;
 `;
 const TaskText = styled.p`
   max-height: 2.7rem;

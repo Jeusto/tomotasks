@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { FiPlus } from "react-icons/fi";
+import { FiPlus, FiX } from "react-icons/fi";
 import EmptyState from "./EmptyState";
 import SingleTask from "./SingleTask";
 import AddTask from "./AddTask";
 
-const TaskList = ({ tasks, onAdd, onDelete, onCheck }) => {
+const TaskList = ({ tasks, onAdd, onDelete, onCheck, onDeleteAll }) => {
   // State
   const [showAddTask, setShowAddTask] = useState(false);
 
@@ -43,13 +43,19 @@ const TaskList = ({ tasks, onAdd, onDelete, onCheck }) => {
         ></AddTask>
       )}
       {!showAddTask && (
-        <AddTaskBtn
-          status={showAddTask}
-          onClick={() => setShowAddTask(!showAddTask)}
-        >
-          <FiPlus color="#ea5e57" size={25} />
-          {showAddTask ? "Close  " : "Add new task"}
-        </AddTaskBtn>
+        <Buttons>
+          <AddTaskBtn
+            status={showAddTask}
+            onClick={() => setShowAddTask(!showAddTask)}
+          >
+            <FiPlus color="#ea5e57" size={25} />
+            Add new task
+          </AddTaskBtn>
+          <DeleteAllBtn status={showAddTask} onClick={() => onDeleteAll()}>
+            <FiX color="gray" size={25} />
+            Delete all
+          </DeleteAllBtn>
+        </Buttons>
       )}
     </TaskListWrapper>
   );
@@ -74,9 +80,14 @@ const Title = styled.div``;
 const Number = styled.div`
   margin-left: 1rem;
 `;
+const Buttons = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+`;
 const AddTaskBtn = styled.button`
   color: #ea5e57;
-  width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -84,8 +95,21 @@ const AddTaskBtn = styled.button`
   font-weight: 500;
   cursor: pointer;
   padding: 0.5rem 0rem;
-  position: absolute;
-  right: 0;
+
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+  padding-left: 0.5rem;
+`;
+const DeleteAllBtn = styled.button`
+  color: gray;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 0rem;
+  margin-left: 1rem;
   border-radius: 0.25rem;
   margin-top: 1rem;
   padding-left: 0.5rem;

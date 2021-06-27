@@ -50,6 +50,11 @@ function App() {
     sound.play();
   };
 
+  // Delete all tasks
+  const deleteAll = () => {
+    setTasks([]);
+  };
+
   // Component
   return (
     <div className="container">
@@ -60,6 +65,7 @@ function App() {
         onAdd={addTask}
         onDelete={deleteTask}
         onCheck={completeTask}
+        onDeleteAll={deleteAll}
       ></TaskList>
     </div>
   );

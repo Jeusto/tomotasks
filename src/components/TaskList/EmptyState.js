@@ -13,17 +13,16 @@ const EmptyState = () => {
 // Styles
 const Wrapper = styled.div`
   margin: auto;
-  margin-top: 1rem;
+  margin-top: 0.25rem;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  padding-left: 0.75rem;
 `;
 const Text = styled.p`
   font-size: 1.5rem;
-  color: gray;
+  color: #757575;
   padding: 0;
   margin: 0;
 `;

@@ -58,7 +58,7 @@ function App() {
   // Component
   return (
     <div className="container">
-      <Header title={"Tomatasks"}></Header>
+      <Header title={"Tomotasks"}></Header>
       <Pomodoro></Pomodoro>
       <TaskList
         tasks={tasks}

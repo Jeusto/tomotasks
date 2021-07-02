@@ -27,17 +27,17 @@ const Task = ({ task, onCheck, onDelete }) => {
   return (
     <TaskWrapper>
       <GreenCheckbox
+        style={{ marginLeft: "-0.5rem" }}
         checked={task.status === "complete" ? true : false}
         onChange={handleChange}
         inputProps={{ "aria-label": "primary checkbox" }}
       />
       <TaskText status={task.status}>{task.text}</TaskText>
       <Icon>
-        {" "}
         <FiTrash
           onClick={() => onDelete(task.id)}
           size={25}
-          color="#808080"
+          color="#757575"
           style={{
             hover: "display:none",
             marginLeft: "auto",
@@ -58,7 +58,6 @@ const TaskWrapper = styled.div`
   display: flex;
   align-items: center;
   border-radius: 0.25rem;
-  margin-top: 0rem;
   border-bottom: 2px solid #ededed;
 `;
 const TaskText = styled.p`

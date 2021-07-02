@@ -134,13 +134,11 @@ const Pomodoro = () => {
 
 // Styles
 const PomodoroWrapper = styled.div`
-  margin: 2rem 0;
-  border-radius: 0rem 0rem 0.75rem 0.75rem;
-  background-color: #fff2f2;
   width: 100%;
+  background-color: #fafafa;
   padding-bottom: 2rem;
   transition: 200ms ease-in-out;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.06), 0 2px 4px 0 rgba(0, 0, 0, 0.03);
 `;
 const Countdown = styled.h1`
   color: #403b3b;
@@ -170,7 +168,7 @@ const ModeBtn = styled.button`
     if (status) {
       return "background-color: #ea5e57; color: #ffffff";
     } else {
-      return "background-color: #fff2f2; color: #424242";
+      return "background-color: #f0f0f0; color: #424242";
     }
   }}
 `;

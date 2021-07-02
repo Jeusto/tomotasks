@@ -29,8 +29,9 @@ const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 0.2rem solid #f2d2d0;
-  padding: 0.25rem 0;
+  border-bottom: 0.15rem solid #f2eeed;
+  padding: 0.5rem 0 0.5rem 0;
+  margin-bottom: 1.25rem;
 `;
 const Logo = styled.div`
   color: inherit;

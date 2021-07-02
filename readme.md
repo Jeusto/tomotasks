@@ -4,4 +4,4 @@ First React project which is a productivity web app combining a countdown and a 
 
 Try it here: https://tomotasks.vercel.app/
 
-![demo](https://i.imgur.com/pFt00jk.png)
+![demo](public/demo.png)
